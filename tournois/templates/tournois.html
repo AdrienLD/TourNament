@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Tournois</title>
+</head>
+<body>
+    <h1>Liste des Tournois</h1>
+    <ul>
+        {% for tournoi in tournois %}
+            <li>
+                {{ tournoi.nom }} - Sport: {{ tournoi.type_sport }}
+                {% if tournoi.equipes.all %}
+                    <ul>
+                        {% for equipe in tournoi.equipes.all %}
+                            <li>{{ equipe.nom }} - {% for joueur in equipe.joueurs.all %}
+                                {{ joueur.nom }},
+                            {% endfor %}</li> 
+                            <a href="{% url 'add_joueur' equipe.nom|urlencode %}" class="btn">Ajouter un joueur</a>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'add_match' tournoi.nom|urlencode %}" class="btn">Ajouter un match</a> <br/>
+                    <a href="{% url 'liste_matchs' tournoi.nom|urlencode %}" class="btn">Voir les matchs</a> <br/>
+                {% else %}
+                    <p>Aucune equipe inscrit.</p>
+                {% endif %}
+                    <a href="{% url 'add_equipe' tournoi.nom|urlencode %}" class="btn">Ajouter une equipe</a> <br/>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_tournois' %}" class="btn">Ajouter un tournoi</a> <br/>
+
+</body>
+</html>

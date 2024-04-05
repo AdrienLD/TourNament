@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nouveau Match pour {{ tournoi.nom }}</title>
+</head>
+<body>
+    <h1>Nouveau Match pour le tournoi : {{ tournoi.nom }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Créer le Match</button>
+    </form>
+</body>
+</html>

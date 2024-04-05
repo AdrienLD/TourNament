@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matchs du Tournoi {{ tournoi.nom }}</title>
+</head>
+<body>
+    <h1>Matchs du Tournoi: {{ tournoi.nom }}</h1>
+    <ul>
+        {% for match in matchs %}
+            <li>
+                {{ match.equipe1.nom }} vs {{ match.equipe2.nom }} : 
+                {{ match.score_equipe1 }} - {{ match.score_equipe2 }}
+                <br/>
+                Joueurs :
+                <ul>
+                    <li>
+                        {{ match.equipe1.nom }} : 
+                        {% for joueur in match.equipe1.joueurs.all %}
+                            {{ joueur.nom }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>
+                        {{ match.equipe2.nom }} : 
+                        {% for joueur in match.equipe2.joueurs.all %}
+                            {{ joueur.nom }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'liste_tournois' %}">Retour à la liste des tournois</a>
+</body>
+</html>
